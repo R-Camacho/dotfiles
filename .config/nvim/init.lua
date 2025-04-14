@@ -52,7 +52,6 @@ vim.g.mapleader = ","
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-	print("running clipboard")
 	vim.opt.clipboard = "unnamedplus"
 end)
 
