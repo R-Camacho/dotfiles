@@ -60,9 +60,11 @@ return {
 								{ desc = "Goto references", buffer = bufnr }
 							)
 							vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information", buffer = bufnr })
+
+                            -- TODO: does not work
 							vim.keymap.set(
 								"i",
-								"<C-h>",
+								"<C-k>",
 								vim.lsp.buf.signature_help,
 								{ desc = "Signature Help", buffer = bufnr }
 							)
@@ -95,6 +97,7 @@ return {
 			"hrsh7th/vim-vsnip",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
+            { "ray-x/lsp_signature.nvim", event = "InsertEnter", opts = {} },
 		},
 		config = function()
 			local cmp = require("cmp")
