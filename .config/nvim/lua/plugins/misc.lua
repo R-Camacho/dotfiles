@@ -15,4 +15,9 @@ return {
 			"nvim-telescope/telescope.nvim", -- optional
 		},
 	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {},
+	},
 }
