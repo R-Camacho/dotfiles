@@ -28,47 +28,28 @@ return {
 				cmp_lsp.default_capabilities()
 			)
 
+			local on_attach = function(_, bufnr)
+				vim.keymap.set(
+					"n",
+					"<leader>lca",
+					vim.lsp.buf.code_action,
+					{ desc = "Show code actions", buffer = bufnr }
+				)
+				vim.keymap.set("n", "rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = bufnr })
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition", buffer = bufnr })
+				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation", buffer = bufnr })
+				vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references", buffer = bufnr })
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information", buffer = bufnr })
+
+				-- TODO: does not work
+				vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help", buffer = bufnr })
+			end
+
 			-- This automatically sets up all installed servers with default config
 			mason_lspconfig.setup_handlers({
 				function(server_name)
 					lspconfig[server_name].setup({
-
-						on_attach = function(_, bufnr)
-							vim.keymap.set(
-								"n",
-								"<leader>lca",
-								vim.lsp.buf.code_action,
-								{ desc = "Show code actions", buffer = bufnr }
-							)
-							vim.keymap.set("n", "rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = bufnr })
-							vim.keymap.set(
-								"n",
-								"gd",
-								vim.lsp.buf.definition,
-								{ desc = "Goto definition", buffer = bufnr }
-							)
-							vim.keymap.set(
-								"n",
-								"gi",
-								vim.lsp.buf.implementation,
-								{ desc = "Goto implementation", buffer = bufnr }
-							)
-							vim.keymap.set(
-								"n",
-								"gr",
-								vim.lsp.buf.references,
-								{ desc = "Goto references", buffer = bufnr }
-							)
-							vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information", buffer = bufnr })
-
-                            -- TODO: does not work
-							vim.keymap.set(
-								"i",
-								"<C-k>",
-								vim.lsp.buf.signature_help,
-								{ desc = "Signature Help", buffer = bufnr }
-							)
-						end,
+						on_attach = on_attach,
 
 						capabilities = capabilities,
 					})
@@ -79,6 +60,8 @@ return {
 					lspconfig.clangd.setup({
 						cmd = { "clangd", "--background-index" },
 						filetypes = { "c", "cpp", "objc", "objcpp" },
+                        on_attach = on_attach,
+						capabilities = capabilities,
 					})
 				end,
 			})
@@ -97,7 +80,7 @@ return {
 			"hrsh7th/vim-vsnip",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
-            { "ray-x/lsp_signature.nvim", event = "InsertEnter", opts = {} },
+			{ "ray-x/lsp_signature.nvim", event = "InsertEnter", opts = {} },
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -117,6 +100,17 @@ return {
 				}, {
 					{ name = "buffer" },
 				}),
+			})
+
+			vim.diagnostic.config({
+				virtual_text = {
+					spacing = 4,
+					prefix = "●",
+				},
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
 			})
 		end,
 	},
