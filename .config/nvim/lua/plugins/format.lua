@@ -16,6 +16,7 @@ return {
 			formatters_by_ft = {
 				lua = { ensureInstalled("stylua") },
 				c = { ensureInstalled("clang-format") },
+				cpp = { ensureInstalled("clang-format") },
 			},
 		})
 	end,
