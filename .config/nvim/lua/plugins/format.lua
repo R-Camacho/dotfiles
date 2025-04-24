@@ -17,6 +17,7 @@ return {
 				lua = { ensureInstalled("stylua") },
 				c = { ensureInstalled("clang-format") },
 				cpp = { ensureInstalled("clang-format") },
+				r = { "styler" },
 			},
 		})
 	end,
