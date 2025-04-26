@@ -60,7 +60,7 @@ return {
 					lspconfig.clangd.setup({
 						cmd = { "clangd", "--background-index" },
 						filetypes = { "c", "cpp", "objc", "objcpp" },
-                        on_attach = on_attach,
+						on_attach = on_attach,
 						capabilities = capabilities,
 					})
 				end,
@@ -95,10 +95,17 @@ return {
 				}),
 
 				sources = cmp.config.sources({
+					{ name = "copilot", group_index = 2 },
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" }, -- For luasnip users.
 				}, {
 					{ name = "buffer" },
+				}),
+
+				cmp.setup.filetype({ "codecompanion" }, {
+					sources = {
+						{ name = "codecompanion" },
+					},
 				}),
 			})
 
