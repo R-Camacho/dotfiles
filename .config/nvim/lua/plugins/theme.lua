@@ -1,11 +1,9 @@
-local name = "tokyonight"
 return {
-	"folke/tokyonight.nvim",
-	lazy = false,
-	priority = 1000,
-	name = name,
+	"vague2k/huez.nvim",
+	import = "huez-manager.import",
+	branch = "stable",
+	event = "UIEnter",
 	config = function()
-		vim.cmd("colorscheme " .. name)
+		require("huez").setup({})
 	end,
-	opts = {},
 }
