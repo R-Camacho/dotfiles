@@ -8,16 +8,6 @@ return {
 			"stevearc/conform.nvim",
 		},
 		config = function()
-			require("fidget").setup({})
-			require("conform").setup({
-				formatters_by_ft = {},
-			})
-			require("mason").setup()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "clangd" },
-				automatic_installation = true,
-			})
-
 			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
 			local cmp_lsp = require("cmp_nvim_lsp")
@@ -45,25 +35,33 @@ return {
 				vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help", buffer = bufnr })
 			end
 
-			-- This automatically sets up all installed servers with default config
-			mason_lspconfig.setup_handlers({
-				function(server_name)
-					lspconfig[server_name].setup({
-						on_attach = on_attach,
+			require("fidget").setup({})
+			require("conform").setup({
+				formatters_by_ft = {},
+			})
+			require("mason").setup()
+			require("mason-lspconfig").setup({
+				ensure_installed = { "lua_ls", "clangd" },
+				automatic_installation = true,
 
-						capabilities = capabilities,
-					})
-				end,
+				handlers = {
+					-- Default handler
+                    function(server_name)
+						lspconfig[server_name].setup({
+							on_attach = on_attach,
 
-				-- Add custom handlers
-				["clangd"] = function()
-					lspconfig.clangd.setup({
-						cmd = { "clangd", "--background-index" },
-						filetypes = { "c", "cpp", "objc", "objcpp" },
-						on_attach = on_attach,
-						capabilities = capabilities,
-					})
-				end,
+							capabilities = capabilities,
+						})
+					end,
+
+					-- Add custom handlers
+					["clangd"] = function()
+						lspconfig.clangd.setup({
+							cmd = { "clangd", "--background-index" },
+							filetypes = { "c", "cpp", "objc", "objcpp" },
+						})
+					end,
+				},
 			})
 		end,
 	},
