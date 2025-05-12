@@ -89,4 +89,5 @@ vim.api.nvim_create_user_command("Format", function()
 	end
 
 	conform.format({ async = true, lsp_fallback = true })
-end, { desc = "Format file or selection" })
+    vim.cmd("write")
+end, { desc = "Format and save file" })
