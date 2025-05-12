@@ -5,11 +5,8 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"j-hui/fidget.nvim",
-			"stevearc/conform.nvim",
 		},
 		config = function()
-			local lspconfig = require("lspconfig")
-			local mason_lspconfig = require("mason-lspconfig")
 			local cmp_lsp = require("cmp_nvim_lsp")
 			local capabilities = vim.tbl_deep_extend(
 				"force",
@@ -36,35 +33,27 @@ return {
 			end
 
 			require("fidget").setup({})
-			require("conform").setup({
-				formatters_by_ft = {},
-			})
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "clangd" },
 				automatic_installation = true,
+			})
 
-				handlers = {
-					-- Default handler
-                    function(server_name)
-						lspconfig[server_name].setup({
-							on_attach = on_attach,
+			vim.lsp.config("*", {
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
 
-							capabilities = capabilities,
-						})
-					end,
-
-					-- Add custom handlers
-					["clangd"] = function()
-						lspconfig.clangd.setup({
-							cmd = { "clangd", "--background-index" },
-							filetypes = { "c", "cpp", "objc", "objcpp" },
-						})
-					end,
-				},
+			-- Add custom handlers here
+			vim.lsp.config("clangd", {
+				cmd = { "clangd", "--background-index" },
+				filetypes = { "c", "cpp", "objc", "objcpp" },
+				on_attach = on_attach,
+				capabilities = capabilities,
 			})
 		end,
 	},
+
 	-- Code completions
 	{
 		"hrsh7th/nvim-cmp",
