@@ -18,6 +18,7 @@ return {
 				c = { ensureInstalled("clang-format") },
 				cpp = { ensureInstalled("clang-format") },
 				r = { "styler" },
+				python = { ensureInstalled("autopep8") },
 			},
 		})
 	end,
