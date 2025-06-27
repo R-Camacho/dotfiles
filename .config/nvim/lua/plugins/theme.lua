@@ -1,5 +1,3 @@
-local themeCount = 5
-
 return {
 	-- THEMERY PLUGIN
 	{
@@ -7,7 +5,6 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			assert(themeCount == 5, "Every time you add a theme update themeCount variable.")
 			require("themery").setup({
 				themes = {
 					{
@@ -30,6 +27,14 @@ return {
 						name = "gruber-darker",
 						colorscheme = "gruber-darker",
 					},
+					{
+						name = "nightfox",
+						colorscheme = "nightfox",
+					},
+					{
+						name = "dayfox",
+						colorscheme = "dayfox",
+					},
 				},
 				-- themeConfigFile = "~/.config/nvim/lua/themery_theme.lua", -- Outdated
 				livePreview = true,
@@ -45,7 +50,6 @@ return {
 		opts = { style = "moon", transparent = true },
 		config = function(_, opts)
 			require("tokyonight").setup(opts)
-			assert(themeCount == 5, "Every time you add a theme update themeCount variable.")
 		end,
 	},
 	{
@@ -88,6 +92,14 @@ return {
 		},
 		config = function(_, opts)
 			require("gruber-darker").setup(opts)
+		end,
+	},
+	{
+		"EdenEast/nightfox.nvim",
+		name = "nightfox",
+		opts = {},
+		config = function(_, opts)
+			require("nightfox").setup(opts)
 		end,
 	},
 }
