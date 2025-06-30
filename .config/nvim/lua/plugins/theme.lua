@@ -35,6 +35,14 @@ return {
 						name = "dayfox",
 						colorscheme = "dayfox",
 					},
+					{
+						name = "kanso-ink",
+						colorscheme = "kanso-ink",
+					},
+					{
+						name = "kanso-zen",
+						colorscheme = "kanso-zen",
+					},
 				},
 				-- themeConfigFile = "~/.config/nvim/lua/themery_theme.lua", -- Outdated
 				livePreview = true,
@@ -100,6 +108,16 @@ return {
 		opts = {},
 		config = function(_, opts)
 			require("nightfox").setup(opts)
+		end,
+	},
+	{
+		"webhooked/kanso.nvim",
+		name = "kanso",
+		opts = {
+            italics = false,
+        },
+		config = function(_, opts)
+			require("kanso").setup(opts)
 		end,
 	},
 }
