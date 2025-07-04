@@ -1,0 +1,60 @@
+/* INKPOT WOFI Style. */
+*{
+    font-family: Berkeley Mono;
+	font-size: 20px;
+}
+
+window {
+	margin: 0px;
+	border: 2px solid #b9b9b9;
+	background-color: #282a36;
+    border-radius: 4px;
+
+}
+
+#input {
+	margin: 3px;
+	border: none;
+	color: #cfbfad;
+	background-color: #1e1e27;
+}
+
+#inner-box {
+	margin: 3px;
+	border: none;
+	background-color: #1e1e27;
+}
+
+#outer-box {
+	margin: 3px;
+	border: none;
+	background-color: #282a36;
+}
+
+#scroll {
+	margin: 0px;
+	border: none;
+}
+
+#text {
+	margin: 3px;
+	border: none;
+	color: #cfbfad;
+}
+
+#entry.activatable #text {
+	color: #282a36;
+}
+
+#entry > * {
+	color: #cfbfad;
+}
+
+#entry:selected {
+	background-color: #4e4e8f;
+}
+
+#entry:selected #text {
+	font-weight: bold;
+	background-color: #4e4e8f;
+}

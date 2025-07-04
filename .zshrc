@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git archlinux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,5 +111,10 @@ function cmake() {
     CLEAN_PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '^/mnt/c/' | paste -sd ':' -)
     PATH="$CLEAN_PATH" command cmake "$@"
 }
+
+export OZONE_PLATFORM=wayland
+export QT_QPA_PLATFORM=wayland
+export MOZ_ENABLE_WAYLAND=1
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
 
 eval "$(starship init zsh)"

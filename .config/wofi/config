@@ -1,0 +1,8 @@
+height=600
+width=400
+term=kitty
+image_size=16
+insensitive=true
+allow_images=true
+allow_markup=true
+no_actions=true
