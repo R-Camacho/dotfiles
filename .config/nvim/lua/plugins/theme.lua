@@ -115,6 +115,7 @@ return {
 		name = "kanso",
 		opts = {
             italics = false,
+            transparent = true,
         },
 		config = function(_, opts)
 			require("kanso").setup(opts)
