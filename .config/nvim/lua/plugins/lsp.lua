@@ -15,21 +15,22 @@ return {
 				cmp_lsp.default_capabilities()
 			)
 
-			local on_attach = function(_, bufnr)
-				vim.keymap.set(
-					"n",
-					"<leader>lca",
-					vim.lsp.buf.code_action,
-					{ desc = "Show code actions", buffer = bufnr }
-				)
-				vim.keymap.set("n", "rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = bufnr })
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition", buffer = bufnr })
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation", buffer = bufnr })
-				vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references", buffer = bufnr })
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover information", buffer = bufnr })
+			local map = function(mode, lhs, rhs, desc, bufnr)
+				vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+			end
 
-				-- TODO: does not work
-				vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help", buffer = bufnr })
+			local on_attach = function(_, bufnr)
+				map("n", "<leader>lca", vim.lsp.buf.code_action, "Show code actions", bufnr)
+				map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol", bufnr)
+				map("n", "gd", vim.lsp.buf.definition, "Goto definition", bufnr)
+				map("n", "gi", vim.lsp.buf.implementation, "Goto implementation", bufnr)
+				map("n", "gr", vim.lsp.buf.references, "Goto references", bufnr)
+				map("n", "K", vim.lsp.buf.hover, "Hover information", bufnr)
+				map("n", "<leader>ws", vim.lsp.buf.workspace_symbol, "Workspace symbols", bufnr)
+				map("n", "<leader>d", vim.diagnostic.open_float, "Show diagnostics", bufnr)
+				map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic", bufnr)
+				map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic", bufnr)
+				map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature Help", bufnr)
 			end
 
 			require("fidget").setup({})
@@ -59,41 +60,47 @@ return {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-vsnip",
-			"hrsh7th/vim-vsnip",
 			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			{ "ray-x/lsp_signature.nvim", event = "InsertEnter", opts = {} },
+			{
+				"ray-x/lsp_signature.nvim",
+				lazy = true,
+				event = "InsertEnter",
+				opts = {},
+			},
 		},
 		config = function()
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
 			local cmp_select = { behaviour = cmp.SelectBehavior.Select }
-			cmp.setup({
 
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-n>"] = cmp.mapping.select_next_item(cmp_select), -- or just use arrow keys
 					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 					["<Tab>"] = cmp.mapping.confirm({ select = true }),
 				}),
-
 				sources = cmp.config.sources({
 					{ name = "copilot", group_index = 2 },
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
+					{ name = "luasnip" },
+					{ name = "path" },
 				}, {
 					{ name = "buffer" },
 				}),
+			})
 
-				cmp.setup.filetype({ "codecompanion" }, {
-					sources = {
-						{ name = "codecompanion" },
-					},
-				}),
+			cmp.setup.filetype({ "codecompanion" }, {
+				sources = {
+					{ name = "codecompanion" },
+				},
 			})
 
 			vim.diagnostic.config({
