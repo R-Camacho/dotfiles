@@ -3,6 +3,12 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		opts = {},
 	},
+    --[[
+    {
+		"folke/lazydev.nvim",
+		opts = {},
+	},
+    ]]
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {}, -- adds git decorations
@@ -30,4 +36,9 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
 		opts = { render_modes = { "n", "c", "t" } },
 	},
+    {
+        -- dir = "~/projects/sandbox.nvim",
+        "R-Camacho/sandbox.nvim",
+        opts = {},
+    },
 }
