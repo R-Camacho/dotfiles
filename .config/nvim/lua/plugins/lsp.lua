@@ -7,12 +7,12 @@ return {
 			"j-hui/fidget.nvim",
 		},
 		config = function()
-			local cmp_lsp = require("cmp_nvim_lsp")
+			local blink_cmp = require("blink.cmp")
 			local capabilities = vim.tbl_deep_extend(
 				"force",
 				{},
 				vim.lsp.protocol.make_client_capabilities(),
-				cmp_lsp.default_capabilities()
+				blink_cmp.get_lsp_capabilities({}, false)
 			)
 
 			local map = function(mode, lhs, rhs, desc, bufnr)
@@ -28,8 +28,14 @@ return {
 				map("n", "K", vim.lsp.buf.hover, "Hover information", bufnr)
 				map("n", "<leader>ws", vim.lsp.buf.workspace_symbol, "Workspace symbols", bufnr)
 				map("n", "<leader>d", vim.diagnostic.open_float, "Show diagnostics", bufnr)
-				map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic", bufnr)
-				map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic", bufnr)
+
+				map("n", "[d", function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end, "Previous diagnostic", bufnr)
+				map("n", "]d", function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end, "Next diagnostic", bufnr)
+
 				map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature Help", bufnr)
 			end
 
@@ -55,64 +61,47 @@ return {
 		end,
 	},
 
-	-- Code completions
+	-- Completions
 	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"L3MON4D3/LuaSnip",
-			{
-				"ray-x/lsp_signature.nvim",
-				lazy = true,
-				event = "InsertEnter",
-				opts = {},
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		version = "1.*",
+		opts = {
+
+			completion = {
+				documentation = { window = { border = "single" }, auto_show = true },
+
+				accept = {
+					auto_brackets = {
+						enabled = false,
+					},
+				},
+			},
+
+			signature = {
+				enabled = true,
+				trigger = { show_on_insert = true },
+
+				window = {
+					border = "rounded",
+
+					-- Disable if performance issues.
+					treesitter_highlighting = true,
+
+					show_documentation = true,
+				},
+			},
+
+			keymap = {
+
+				preset = "default",
+
+				["<CR>"] = { "select_and_accept", "fallback" },
+				["<Tab>"] = { "select_and_accept", "fallback" },
+
+				["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+				["<C-n>"] = { "select_next", "fallback_to_mappings" },
 			},
 		},
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			local cmp_select = { behaviour = cmp.SelectBehavior.Select }
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-n>"] = cmp.mapping.select_next_item(cmp_select), -- or just use arrow keys
-					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-					["<Tab>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = cmp.config.sources({
-					{ name = "copilot", group_index = 2 },
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "path" },
-				}, {
-					{ name = "buffer" },
-				}),
-			})
-
-			cmp.setup.filetype({ "codecompanion" }, {
-				sources = {
-					{ name = "codecompanion" },
-				},
-			})
-
-			vim.diagnostic.config({
-				virtual_text = {
-					spacing = 4,
-					prefix = "●",
-				},
-				signs = true,
-				underline = true,
-				update_in_insert = false,
-				severity_sort = true,
-			})
-		end,
 	},
 }
