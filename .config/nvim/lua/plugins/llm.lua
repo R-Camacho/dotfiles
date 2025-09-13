@@ -27,4 +27,5 @@ return {
 		vim.cmd([[cnoreabbrev cc CodeCompanion]])
 		vim.cmd([[command! Chat lua require('codecompanion').chat()]])
 	end,
+	cmd = { "Chat", "CodeCompanion", "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionCmd" },
 }

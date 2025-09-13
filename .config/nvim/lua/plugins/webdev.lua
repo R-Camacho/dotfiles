@@ -2,6 +2,8 @@ return {
 	{
 		"uga-rosa/ccc.nvim", -- show colors
 		opts = {},
+        ft = { "css", "html", "javascript", "typescript", "svelte"},
+		cmd = { "CccPick", "CccConvert", "CccHighlighterEnable" },
 	},
 
 	{
@@ -10,5 +12,6 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 		opts = {},
+		cmd = { "LivePreview" },
 	},
 }

@@ -90,6 +90,7 @@ return {
 	{
 		"blazkowolf/gruber-darker.nvim",
 		name = "gruber-darker",
+		lazy = true,
 		opts = {
 			italic = {
 				strings = false,
@@ -105,6 +106,7 @@ return {
 	{
 		"EdenEast/nightfox.nvim",
 		name = "nightfox",
+		lazy = true,
 		opts = {},
 		config = function(_, opts)
 			require("nightfox").setup(opts)
@@ -113,6 +115,7 @@ return {
 	{
 		"webhooked/kanso.nvim",
 		name = "kanso",
+		lazy = true,
 		opts = {
             italics = false,
             transparent = true,
