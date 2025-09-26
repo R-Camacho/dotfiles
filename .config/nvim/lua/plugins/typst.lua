@@ -1,6 +1,6 @@
 return {
 	"chomosuke/typst-preview.nvim",
 	version = "1.*",
-	opts = {},
+	opts = { dependencies_bin = { ['tinymist'] = 'tinymist' } },
 	ft = "typst",
 }
