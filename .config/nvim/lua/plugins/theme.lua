@@ -56,36 +56,24 @@ return {
 		name = "tokyonight",
 		lazy = true,
 		opts = { style = "moon", transparent = true },
-		config = function(_, opts)
-			require("tokyonight").setup(opts)
-		end,
 	},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = true,
 		opts = { flavour = "mocha", transparent_background = true },
-		config = function(_, opts)
-			require("catppuccin").setup(opts)
-		end,
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
 		name = "gruvbox",
 		lazy = true,
 		opts = {},
-		config = function(_, opts)
-			require("gruvbox").setup(opts)
-		end,
 	},
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		lazy = true,
 		opts = { variant = "main", disable_background = true },
-		config = function(_, opts)
-			require("rose-pine").setup(opts)
-		end,
 	},
 	{
 		"blazkowolf/gruber-darker.nvim",
@@ -99,18 +87,12 @@ return {
 				folds = false,
 			},
 		},
-		config = function(_, opts)
-			require("gruber-darker").setup(opts)
-		end,
 	},
 	{
 		"EdenEast/nightfox.nvim",
 		name = "nightfox",
 		lazy = true,
 		opts = {},
-		config = function(_, opts)
-			require("nightfox").setup(opts)
-		end,
 	},
 	{
 		"webhooked/kanso.nvim",
@@ -120,8 +102,5 @@ return {
             italics = false,
             transparent = true,
         },
-		config = function(_, opts)
-			require("kanso").setup(opts)
-		end,
 	},
 }
