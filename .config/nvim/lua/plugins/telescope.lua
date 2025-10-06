@@ -1,13 +1,14 @@
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Telescope grep string under cursor" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-vim.keymap.set("n", "<leader>gg", builtin.git_files, { desc = "Telescope git grep" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.5",
+	branch = "0.1.x",
 	dependencies = { "nvim-lua/plenary.nvim" },
+	keys = {
+		{ "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Telescope find files" },
+		{ "<leader>fs", "<CMD>Telescope grep_string<CR>", desc = "Telescope grep string under cursor" },
+		{ "<leader>fg", "<CMD>Telescope live_grep<CR>", desc = "Telescope live grep" },
+		{ "<leader>gg", "<CMD>Telescope git_files<CR>", desc = "Telescope git grep" },
+		{ "<leader>fb", "<CMD>Telescope buffers<CR>", desc = "Telescope buffers" },
+		{ "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Telescope help tags" },
+		{ "<leader>dd", "<CMD>Telescope diagnostics<CR>", desc = "Telescope LSP diagnostics" },
+	},
 }
