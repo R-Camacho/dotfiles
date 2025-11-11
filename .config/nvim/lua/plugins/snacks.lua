@@ -1,8 +1,8 @@
 return {
-  "folke/snacks.nvim",
-  priority = 1000,
-  lazy = false,
-  opts = {
-    image = { enabled = true, },
-  }
+	"folke/snacks.nvim",
+	priority = 1000,
+	lazy = false,
+	opts = {
+		image = { enabled = true, math = { enabled = false } },
+	},
 }
