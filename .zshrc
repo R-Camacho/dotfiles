@@ -107,9 +107,8 @@ export ELECTRON_OZONE_PLATFORM_HINT=wayland
 
 
 # ALIAS
-
 alias ff="fastfetch"
 alias sunvim="sudo -E -s nvim"
-
+alias ngit='nvim +"lua require(\"lazy\").load({plugins = {\"neogit\"}}) vim.schedule(function() require(\"neogit\").open({kind = \"replace\"}) end)"'
 
 eval "$(starship init zsh)"
