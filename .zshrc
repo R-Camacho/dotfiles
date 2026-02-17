@@ -111,4 +111,8 @@ alias ff="fastfetch"
 alias sunvim="sudo -E -s nvim"
 alias ngit='nvim +"lua require(\"lazy\").load({plugins = {\"neogit\"}}) vim.schedule(function() require(\"neogit\").open({kind = \"replace\"}) end)"'
 
+
+# Add haskell to path
+export PATH="$HOME/.ghcup/bin:$PATH"
+
 eval "$(starship init zsh)"
