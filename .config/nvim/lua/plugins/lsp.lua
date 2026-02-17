@@ -60,6 +60,11 @@ return {
 				filetypes = { "c", "cpp", "objc", "objcpp" },
 				capabilities = capabilities,
 			})
+
+			vim.lsp.config("vtsls", {
+				filetypes = { "typescript", "javascript", "vue" },
+				capabilities = capabilities,
+			})
 		end,
 	},
 
