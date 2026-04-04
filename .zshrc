@@ -111,6 +111,8 @@ alias ff="fastfetch"
 alias sunvim="sudo -E -s nvim"
 alias ngit='nvim +"lua require(\"lazy\").load({plugins = {\"neogit\"}}) vim.schedule(function() require(\"neogit\").open({kind = \"replace\"}) end)"'
 
+# Add zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add haskell to path
 export PATH="$HOME/.ghcup/bin:$PATH"
