@@ -117,4 +117,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Add haskell to path
 export PATH="$HOME/.ghcup/bin:$PATH"
 
+# Add c3 to the path
+export PATH="$HOME/opt/c3c/bin:$PATH"
+
 eval "$(starship init zsh)"
