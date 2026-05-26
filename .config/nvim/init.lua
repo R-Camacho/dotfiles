@@ -52,7 +52,7 @@ vim.g.mapleader = ","
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
 end)
 
 -- Keymaps (see :help vim.keymap.set)
@@ -69,30 +69,60 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+
+vim.api.nvim_set_hl(0, "ForbiddenWhitespace", { bg = "#FF0000", fg = "#FFFFFF", force = true })
+
+local whitespace_group = vim.api.nvim_create_augroup("ForbiddenWhitespace", { clear = true })
+
+local function set_whitespace_match(is_insert)
+    for _, match in ipairs(vim.fn.getmatches()) do
+        if match.group == "ForbiddenWhitespace" then
+            vim.fn.matchdelete(match.id)
+        end
+    end
+
+    if is_insert then
+        vim.fn.matchadd("ForbiddenWhitespace", [[\t\|\s\+\%#\@<!$]])
+    else
+        vim.fn.matchadd("ForbiddenWhitespace", [[\s\+$\|\t]])
+    end
+end
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "InsertLeave" }, {
+    group = whitespace_group,
+    callback = function() set_whitespace_match(false) end,
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+    group = whitespace_group,
+    callback = function() set_whitespace_match(true) end,
+})
+
 -- Plugin configuration
 -- handled in lua/config/lazy.lua
 require("config.lazy")
 
 -- Format using conform plugin
 vim.api.nvim_create_user_command("Format", function()
-	local conform = require("conform")
+    local conform = require("conform")
 
-	-- Get the formatters that would be used for the current buffer
-	local formatters = conform.list_formatters(0) -- 0 = current buffer
+    -- Get the formatters that would be used for the current buffer
+    local formatters = conform.list_formatters(0) -- 0 = current buffer
 
-	if vim.tbl_isempty(formatters) then
-		vim.notify(
-			"No formatter configured or available for this filetype! Check ConformInfo for more specific information",
-			vim.log.levels.ERROR
-		)
-		return
-	end
+    if vim.tbl_isempty(formatters) then
+        vim.notify(
+            "No formatter configured or available for this filetype! Check ConformInfo for more specific information",
+            vim.log.levels.ERROR
+        )
+        return
+    end
 
-	conform.format({
-		async = true,
-		lsp_fallback = true,
-		callback = function()
-			vim.cmd("write")
-		end,
-	})
+    conform.format({
+        async = true,
+        lsp_fallback = true,
+        callback = function()
+            vim.cmd("write")
+        end,
+
+    })
 end, { desc = "Format and save file" })
