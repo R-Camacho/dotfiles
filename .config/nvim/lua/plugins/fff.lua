@@ -1,0 +1,28 @@
+return {
+  'dmtrKovalenko/fff',
+  build = function()
+    -- downloads a prebuilt binary or falls back to cargo build
+    require("fff.download").download_or_build_binary()
+  end,
+  opts = {
+    debug = {
+      enabled = true,
+      show_file_info = {
+          file_info = true,
+          score_breakdown = false,
+          timings = true,
+          full_path = true, -- relative
+        },
+    },
+  },
+  lazy = false, -- the plugin lazy-initialises itself
+  keys = {
+    { "ff", function() require('fff').find_files() end, desc = 'FFFind files' },
+    { "fg", function() require('fff').live_grep() end, desc = 'LiFFFe grep' },
+    { "fs",
+      function() require('fff').live_grep_under_cursor() end,
+      mode = { 'n', 'x' },
+      desc = 'Search current word / selection',
+    },
+  },
+}
