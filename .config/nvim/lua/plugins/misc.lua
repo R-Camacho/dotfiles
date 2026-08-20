@@ -31,4 +31,8 @@ return {
 		"R-Camacho/sandbox.nvim",
 		opts = {},
 	},
+    {
+        "nvim-mini/mini.trailspace", version = false,
+        opts = {},
+    },
 }
