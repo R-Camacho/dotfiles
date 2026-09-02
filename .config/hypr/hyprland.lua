@@ -1,0 +1,10 @@
+require("modules.Monitors")
+require("modules.Input")
+require("modules.Autostart")
+require("modules.Generals")
+require("modules.Misc")
+require("modules.Decorations")
+require("modules.Animations")
+require("modules.Rules")
+require("modules.Keybinds")
+
