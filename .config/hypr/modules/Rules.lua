@@ -12,15 +12,15 @@ hl.window_rule({
     name = "float-windows",
     -- TODO: check this again and add more if needed
     match = {
-        class = "pwvucontrol|bluetui|nmgui|nmtui|thunar|org.gnome.Nautilus",
+        class = "pwvucontrol|bluetui|nmgui|nmtui|thunar|org.gnome.Nautilus|imv|feh|mpv|vlc|nm-connection-editor",
     },
     float = true,
     no_initial_focus = false,
-    move = {960,510},
+    center = true,
     opacity = "1.0",
-    pin = true,
-    decorate = false,
-    size = {"(monitor_w*0.48)","(monitor_h*0.50)"},
+    pin = false,
+    decorate = true,
+    --size = {"(monitor_w*0.48)","(monitor_h*0.50)"},
 })
 
 hl.window_rule({
@@ -40,5 +40,18 @@ hl.window_rule({
         pin        = false,
     },
     no_focus = true,
+})
+
+hl.layer_rule({
+  name  = "Essential blur",
+  match = { namespace = "logout_dialog|rofi|quickshell" },
+  blur = true,
+  ignore_alpha = 0,
+})
+
+hl.layer_rule({
+  name      = "no-anim-for-selection",
+  match     = { namespace = "selection" },
+  no_anim   = true,
 })
 
