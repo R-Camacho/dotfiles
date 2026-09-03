@@ -7,4 +7,5 @@ require("modules.Decorations")
 require("modules.Animations")
 require("modules.Rules")
 require("modules.Keybinds")
+require("modules.Gestures")
 
