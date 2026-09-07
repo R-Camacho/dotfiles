@@ -6,7 +6,7 @@ hl.on("hyprland.start", function ()
 
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
-    hl.exec_cmd("dunst")
+    hl.exec_cmd("mako")
     hl.exec_cmd("nm-applet")
 
     -- clipboard manager
