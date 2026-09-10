@@ -4,7 +4,7 @@ theme="$HOME/.config/rofi/clipboard.rasi"
 
 options="Poweroff\nReboot\nSuspend\nLock\nLogout"
 
-chosen="$(echo -e "$options" | rofi -dmenu -theme "$theme")" || exit 0
+chosen="$(echo -e "$options" | rofi -dmenu -i -theme "$theme")" || exit 0
 
 case "$chosen" in
     Poweroff) systemctl poweroff ;;
