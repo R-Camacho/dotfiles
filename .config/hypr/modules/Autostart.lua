@@ -8,6 +8,7 @@ hl.on("hyprland.start", function ()
 
     hl.exec_cmd("mako")
     hl.exec_cmd("nm-applet")
+    hl.exec_cmd("hypridle")
 
     -- clipboard manager
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
