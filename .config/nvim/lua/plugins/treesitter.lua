@@ -89,7 +89,11 @@ return {
 				end
 
 				-- Auto-install missing parsers (async, no-op if already installed)
-				ts.install({ lang })
+				-- Guard against unsupported languages to avoid "skipping unsupported language" warnings
+				local ok_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
+				if ok_parsers and parsers[lang] ~= nil then
+					ts.install({ lang })
+				end
 			end,
 		})
 	end,
